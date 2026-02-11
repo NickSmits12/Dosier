@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Mijn gegevens{% endblock %}
+{% block content %}
+  <section class="card">
+    <h2>Mijn opgeslagen gegevens</h2>
+    {% if submissions %}
+      {% for item in submissions %}
+        <article class="entry">
+          <h3>Inzending #{{ item.id }}</h3>
+          <p><strong>Datum:</strong> {{ item.created_at }}</p>
+          <p><strong>Naam:</strong> {{ item.name }}</p>
+          <p><strong>Leeftijd:</strong> {{ item.age }}</p>
+          <p><strong>Gewicht:</strong> {{ item.weight if item.weight is not none else 'Niet ingevuld' }}</p>
+          <p><strong>Maaltijden:</strong></p>
+          <ol>
+            {% for meal in item.meals %}
+              <li>{{ meal }}</li>
+            {% endfor %}
+          </ol>
+        </article>
+      {% endfor %}
+    {% else %}
+      <p>Nog geen gegevens opgeslagen. Vul eerst het formulier in.</p>
+    {% endif %}
+  </section>
+{% endblock %}
