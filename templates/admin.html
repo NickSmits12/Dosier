@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Admin database{% endblock %}
+{% block content %}
+  <section class="card">
+    <h2>Admin: database-overzicht</h2>
+    <p class="subtle">Alle formulierinzendingen (lokaal opgeslagen in SQLite).</p>
+
+    {% if submissions %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Datum</th>
+              <th>Naam</th>
+              <th>Leeftijd</th>
+              <th>Gewicht</th>
+              <th>Maaltijden</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in submissions %}
+              <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.created_at }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.age }}</td>
+                <td>{{ item.weight if item.weight is not none else '-' }}</td>
+                <td>
+                  <ul>
+                    {% for meal in item.meals %}
+                      <li>{{ meal }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>Er zijn nog geen inzendingen.</p>
+    {% endif %}
+  </section>
+{% endblock %}

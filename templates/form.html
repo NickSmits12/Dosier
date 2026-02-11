@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Voedingsformulier{% endblock %}
+{% block content %}
+  <section class="card">
+    <h2>Voedingsformulier</h2>
+    <form method="post" id="meal-form" novalidate>
+      <div class="field">
+        <label for="name">Naam (verplicht)</label>
+        <input id="name" name="name" type="text" required />
+      </div>
+
+      <div class="field">
+        <label for="age">Leeftijd (verplicht)</label>
+        <input id="age" name="age" type="number" min="1" max="120" required />
+      </div>
+
+      <p class="privacy-note">
+        Deze informatie wordt niet gedeeld met derde partijen. Alleen eventueel met een huisarts,
+        in overleg met de cliënt.
+      </p>
+
+      <div class="field">
+        <label for="weight">Gewicht in kg <span class="subtle">(optioneel)</span></label>
+        <input id="weight" name="weight" type="number" step="0.1" min="1" max="500" />
+      </div>
+
+      <div class="field">
+        <label for="meal_count">Hoeveel maaltijden heb je gehad? (1 t/m 10)</label>
+        <select id="meal_count" name="meal_count" required>
+          <option value="">Kies aantal maaltijden</option>
+          {% for i in range(1, max_meals + 1) %}
+            <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <p class="instruction">
+        Vul per maaltijd zo specifiek mogelijk in wat je hebt gegeten <strong>("denk ook aan sauzen,
+        zoetjes en drankjes")</strong>.
+      </p>
+
+      <div id="meal-fields"></div>
+
+      <button type="submit">Opslaan</button>
+    </form>
+  </section>
+
+  <script src="{{ url_for('static', filename='form.js') }}"></script>
+{% endblock %}
